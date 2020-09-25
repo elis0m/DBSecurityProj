@@ -1,4 +1,0 @@
-INDEX VERSION 1.131+D:\workspsace_graduate\.metadata\.plugins\org.eclipse.jdt.core
-113558702.index
-2267846915.index
-436553888.index
