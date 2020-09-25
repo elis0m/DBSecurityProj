@@ -1,0 +1,97 @@
+package com.jeeihyun.client;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import com.secho.client.handle.ClientDataHandle;
+import com.secho.client.handle.KeyGenerator;
+import com.secho.client.net.Client;
+
+
+public class ClientMain {
+    public static void main(String[] args) {
+
+    	ClientDataHandle cDataHandle = new ClientDataHandle();      
+    	 
+        ArrayList<String> list = new ArrayList<>();
+        //KeyGenerator keyGen = new KeyGenerator();
+
+        int command;
+        boolean loop = true;        
+       
+        
+        Client client = new Client();
+        client.start();
+                
+        Scanner sc = new Scanner(System.in);
+        System.out.println("* GraduateProject KeywordSearch *");
+
+        cDataHandle.print();        
+        
+        
+        while(loop){
+            command = sc.nextInt();
+            switch(command){
+                case 1:
+                    list = KeyGenerator.make();
+                    System.out.println("Tset 생성 완료");
+                    cDataHandle.print();
+                    break;
+                case 2:                	
+                	if(list ==null || list.isEmpty()) {
+                		list = KeyGenerator.make();
+                	}
+                	cDataHandle.SendTSet(client.getOutputStream(),list);
+                    System.out.println("Tset 서버에 전송");
+                    cDataHandle.print();
+                    break;
+                case 3:                	  
+                	  	//String keyStr = wait_search_keyword();                	
+                	  	//cDataHandle.send(client.getOutputStream(), keyStr);
+                	  	cDataHandle.SendKeyword(client.getOutputStream());        	  	
+                	  	
+                	  	/* Thread에서 처리하도록 .....
+						try {
+							String msg = client.getInputStream().readUTF();
+							System.out.println("서버로부터 받은 메세지 => ");
+							System.out.println(msg);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+							cDataHandle.print();     
+                	  	*/
+                	             	  
+                	  
+                    break;
+                case 4:
+                    loop = false;
+                    break;
+                default:
+            }
+        }
+        System.out.println("done!!");
+        System.exit(0);
+    }
+    
+    
+     private static String wait_search_keyword() {
+    	 String str = null;
+    	 System.out.println("키워드 입력 >>> ");
+    	 
+    	 BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+    	 
+    	 try {
+			str = in.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	 return str;
+     }
+    
+    
+}

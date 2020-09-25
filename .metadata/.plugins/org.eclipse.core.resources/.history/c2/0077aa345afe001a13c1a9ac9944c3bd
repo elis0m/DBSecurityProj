@@ -1,0 +1,31 @@
+package com.jeeihyun.server.net;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+
+public class Server{
+    private ServerSocket Socket;
+    private Socket Socket1;
+    private final int port = 7890;
+
+    public void StartServer(){
+            try{
+                    Socket = new ServerSocket(port);
+                    System.out.println("[서버모드] Client로 부터 요청명령어를 기다리는 중 (포트  : "+port+")");
+                   
+                 
+	                    Socket1 = Socket.accept();
+	                    
+	                    ReceiveThread ReceiveMsg = new ReceiveThread(Socket1);
+	                    ReceiveMsg.start();
+	                    System.out.println("Client 접속 성공");
+                                   
+                } catch (IOException e){ System.out.println("포트 이미 사용 중"); }
+    }
+
+}
+

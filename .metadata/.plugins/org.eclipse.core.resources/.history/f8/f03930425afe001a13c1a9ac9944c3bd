@@ -1,0 +1,19 @@
+package com.jeeihyun.server;
+
+import com.secho.server.net.Server;
+import com.secho.server.security.AES;
+import com.secho.server.security.SHA256;
+import com.secho.server.utils.kMap;
+
+
+public class ServerMain {
+    public static void main(String[] args) throws InterruptedException {
+       
+        Server server = new Server();  
+        server.StartServer();
+    
+        
+        System.out.println("* GraduateProject 2019 Keyword search *");
+        System.out.println("* 클라이언트 명령 대기 중  *");
+    }
+}
